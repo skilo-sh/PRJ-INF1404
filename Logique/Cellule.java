@@ -1,19 +1,21 @@
+// Je fais partit du package Logique
 package Logique;
 
-public class Cellule
-{
-	// Attributs
-	int _orientation;
-	int _taille;
-	int _hauteur;
+// J'ai besoin de ces classes pour travailler
+import Logique.Utils.TypeObstacle;
+import Logique.Utils.Vec2;
 
+public class Cellule {
+	// Attributs
+	TypeObstacle type;
+	Vec2 position;
+	Vec2 orientation;
 
 	// Constructeurs
-	Cellule()
-	{
-		_orientation = 1;
-		_taille = 1;
-		_hauteur = 1;
+	public Cellule(TypeObstacle type, Vec2 position, Vec2 orientation) {
+		this.type = type;
+		this.position = position;
+		this.orientation = orientation;
 	}
 
 	// Méthodes
