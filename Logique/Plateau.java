@@ -11,7 +11,7 @@ public class Plateau {
 	Cellule[][] grille;
 
 	// Constructeur
-	public Plateau() {
+	public Plateau(Vec2) {
 
 	}
 
