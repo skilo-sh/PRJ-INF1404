@@ -12,11 +12,25 @@ public class Cellule {
 	Vec2 orientation;
 
 	// Constructeurs
-	public Cellule(TypeObstacle type, Vec2 position, Vec2 orientation) {
+	public Cellule(TypeObstacle type, Vec2 position) {
 		this.type = type;
 		this.position = position;
 		this.orientation = orientation;
 	}
 
 	// Méthodes
+	public String toString() {
+		switch(this.type) {
+			case VIDE:
+        		return "_";
+      		case MUR:
+      			return "O";
+      		case MIROIR:
+      			return "|";
+      		case SRC_LASER:
+      			return ">";
+		}
+
+		return " ";
+	}
 }
