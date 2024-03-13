@@ -16,6 +16,6 @@ public class App {
         };
 
         Plateau p = new Plateau(maDimension, maSrcLaser, mesObstacles);
-        p.print();
+        System.out.print(p.toString());
     }
 }

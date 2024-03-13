@@ -33,25 +33,27 @@ public class Plateau {
 
 	// Premier constructeur avec juste les dimensions -> remplissement random
 
-	// Méthodes
+	// // Méthodes
 	// public boolean resoudre()
 	// {
 	// 	while (!this.estSolutionne)
 	// 	{
+
 	// 	}
-	// 		return;
+	// 	return;
 	// }
 
-	public void print() {
+	public String toString() {
+		String buff = "";
 		for(int y = 0; y < this.grille.length; y++)
 		{
 			for(int x = 0; x < this.grille.length; x++)
 			{
-        		System.out.print(this.grille[y][x].toString() + " ");
+        		buff += this.grille[y][x].toString() + " ";
 			}
-        	System.out.println(); 
+			buff += "\n";
 		}
-        return;
+        return buff;
 	}
 
 	public void ajoutObstacle(Vec2 emplacement) {
