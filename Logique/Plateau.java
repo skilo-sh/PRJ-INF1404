@@ -19,9 +19,7 @@ public class Plateau {
 			{
 				this.grille[y][x] = new Cellule(TypeObstacle.VIDE, new Vec2(y, x));
 			}
-
 		}
-
 		return;
 	}
 
