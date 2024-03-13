@@ -4,5 +4,6 @@ public enum TypeObstacle {
 	VIDE,
 	MUR,
 	MIROIR,
+	LASER,
 	SRC_LASER;
 }

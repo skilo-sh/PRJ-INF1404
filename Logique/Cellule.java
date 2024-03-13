@@ -9,10 +9,16 @@ public class Cellule {
 	// Attributs
 	TypeObstacle type;
 	Vec2 position;
-	Vec2 orientation;
+	Vec2 orientation; // (NS, WE) ; Ex : (N, E) = (1, 1), (N, W) = (1, -1)
 
 	// Constructeurs
 	public Cellule(TypeObstacle type, Vec2 position) {
+		this.type = type;
+		this.position = position;
+		this.orientation = orientation;
+	}
+
+	public Cellule(TypeObstacle type, Vec2 position, Vec2 orientation) {
 		this.type = type;
 		this.position = position;
 		this.orientation = orientation;
@@ -24,7 +30,7 @@ public class Cellule {
 			case VIDE:
         		return "_";
       		case MUR:
-      			return "O";
+      			return "X";
       		case MIROIR:
       			return "|";
       		case SRC_LASER:
