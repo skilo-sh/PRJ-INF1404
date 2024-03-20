@@ -6,8 +6,6 @@ import Graphique.Affichage;
 import javax.swing.*;
 import java.awt.event.*;
 
-
-
 public class App {
     public static void main(String[] args) {
         Vec2 maDimension = new Vec2(5, 5);
@@ -23,6 +21,6 @@ public class App {
         Plateau p = new Plateau(maDimension, maSrcLaser, mesObstacles);
         System.out.print(p.toString());
 
-    JFrame frame = new Affichage();
+        JFrame frame = new Affichage();
     }
 }
