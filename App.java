@@ -2,6 +2,11 @@ import Logique.Cellule;
 import Logique.Plateau;
 import Logique.Utils.TypeObstacle;
 import Logique.Utils.Vec2;
+import Graphique.Affichage;
+import javax.swing.*;
+import java.awt.event.*;
+
+
 
 public class App {
     public static void main(String[] args) {
@@ -17,5 +22,7 @@ public class App {
 
         Plateau p = new Plateau(maDimension, maSrcLaser, mesObstacles);
         System.out.print(p.toString());
+
+    JFrame frame = new Affichage();
     }
 }
