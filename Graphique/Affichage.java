@@ -15,7 +15,7 @@ public class Affichage extends JFrame {
       };
 
       addWindowListener(l);
-      setSize(200,100);
+      setSize(2000,1100);
       setVisible(true);
    }
 }
