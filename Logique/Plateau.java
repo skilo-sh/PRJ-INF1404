@@ -4,6 +4,7 @@ package Logique;
 // J'ai besoin de ces classes pour travailler
 import Logique.Utils.TypeObstacle;
 import Logique.Utils.Vec2;
+import java.util.Stack;
 
 public class Plateau {
 	// Attributs
@@ -58,6 +59,14 @@ public class Plateau {
 
 	public void ajoutObstacle(Vec2 emplacement) {
 		this.grille[emplacement.getY()][emplacement.getX()] = new Cellule(TypeObstacle.MUR, new Vec2(emplacement.getY(), emplacement.getX()));
+	}
+
+	public void resoudreInstance() {
+		Stack<Integer> maStack = new Stack<>();
+
+		while(!this.estSolutionne) {
+			getDirectionsPossibles()
+		}
 	}
 
 }
