@@ -13,6 +13,7 @@ public class Plateau {
 	Cellule sourceLaser;
 	boolean estSolutionne;
 
+	// Premier constructeur avec les dimensions, la src laser et les murs
 	public Plateau(Vec2 dim, Cellule sourceLaser, Cellule[] obstacles) {
 		// Mise à jour des attributs
 		this.sourceLaser = sourceLaser;
@@ -24,7 +25,7 @@ public class Plateau {
 			for(int x = 0; x < this.grille.length; x++)
 				this.grille[y][x] = new Cellule(TypeObstacle.VIDE, new Vec2(y, x));
 
-		// Remplissages des obstacles
+		// Remplissage des obstacles
 		for(Cellule obs : obstacles)
 			this.grille[obs.position.getY()][obs.position.getX()] = obs;
 
@@ -32,17 +33,20 @@ public class Plateau {
 		this.grille[sourceLaser.position.getY()][sourceLaser.position.getX()] = sourceLaser;
 	}
 
-	// Premier constructeur avec juste les dimensions -> remplissement random
 
-	// // Méthodes
-	// public boolean resoudre()
-	// {
-	// 	while (!this.estSolutionne)
-	// 	{
+	// Méthodes
+	public boolean resoudre()
+	{
+		Situation s_initiale = new Situation(this, this.sourceLaser);
+		System.out.println(s_initiale.getEvolutions().get(0));
+		while (!this.estSolutionne)
+		{
+			this.estSolutionne = true;
+		}
 
-	// 	}
-	// 	return;
-	// }
+		System.out.println("Problem solved !");
+		return true;
+	}
 
 	public String toString() {
 		String buff = "";
@@ -61,12 +65,9 @@ public class Plateau {
 		this.grille[emplacement.getY()][emplacement.getX()] = new Cellule(TypeObstacle.MUR, new Vec2(emplacement.getY(), emplacement.getX()));
 	}
 
-	public void resoudreInstance() {
-		Stack<Integer> maStack = new Stack<>();
-
-		while(!this.estSolutionne) {
-			getDirectionsPossibles()
-		}
+	// Getter
+	public Cellule[][] getGrille()
+	{
+		return this.grille;
 	}
-
 }

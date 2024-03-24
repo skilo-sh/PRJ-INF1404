@@ -9,7 +9,7 @@ public class Cellule {
 	// Attributs
 	TypeObstacle type;
 	Vec2 position;
-	Vec2 orientation; // (NS, WE) ; Ex : (N, E) = (1, 1), (N, W) = (1, -1)
+	Vec2 orientation; // X c'est ±1 et Y c'est ±1 aussi
 
 	// Constructeurs
 	public Cellule(TypeObstacle type, Vec2 position) {
@@ -34,9 +34,31 @@ public class Cellule {
       		case MIROIR:
       			return "|";
       		case SRC_LASER:
-      			return ">";
+      			return "o";
 		}
 
 		return " ";
+	}
+
+	public boolean est_libre()
+	{
+		if(this.type != TypeObstacle.MUR     &
+		   this.type != TypeObstacle.MIROIR  & 
+		   this.type != TypeObstacle.SRC_LASER)
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public Vec2 getPosition()
+	{
+		return this.position;
+	}
+
+	public Vec2 getOrientation()
+	{
+		return this.orientation;
 	}
 }
