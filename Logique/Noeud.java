@@ -42,9 +42,8 @@ public class Noeud extends Cellule {
 	public ArrayList<Noeud> getFils(Plateau p)
 	{
 		if(this.filsRecupere)
-		{
 			return this.fils;
-		}
+		
 		Cellule[][] g = p.getGrille();
 		int x, y;
 	

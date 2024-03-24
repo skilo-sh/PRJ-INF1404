@@ -55,13 +55,14 @@ public class Plateau {
 			Noeud nCourant = maStack.pop();
 
 			// On mets à jour le Plateau en fonction du `nCourant`
-			// this.update(nCourant);
-
+			this.update(nCourant);
+			System.out.println(this);
 			// On push sur la stack chaque fils de `nCourant`
 			ArrayList<Noeud> lesFils = nCourant.getFils(this);
 			if(lesFils.size() == 0)
 			{
 				System.out.println("Fin de chemin");
+				// this.reset();
 			}
 			for(Noeud n : lesFils)
 			{
@@ -101,6 +102,12 @@ public class Plateau {
 			for(int x = 0; x < this.grille.length; x++)
 				if(this.grille[y][x].getType() == TypeObstacle.MUR || this.grille[y][x].getType() == TypeObstacle.LASER)
 					this.grille[y][x].setType(TypeObstacle.VIDE);
+	}
+
+	public void update(Noeud n)
+	{
+		Vec2 np = n.getPosition(); 
+		this.grille[np.getY()][np.getX()].setType(TypeObstacle.LASER);
 	}
 
 	public boolean isValidCoordinate(int x, int y)
