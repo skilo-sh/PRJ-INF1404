@@ -7,12 +7,19 @@ import Logique.Utils.Vec2;
 
 public class Cellule {
 	// Attributs
-	TypeObstacle type;
-	Vec2 position;
-	Vec2 orientation; // X c'est ±1 et Y c'est ±1 aussi
+	protected TypeObstacle type;
+	protected Vec2 position; // (X, Y) contrairement aux accès d'array qui se font en [Y][X]
+	protected Vec2 orientation; // X c'est ±1 et Y c'est ±1 aussi
 
 	// Constructeurs
 	public Cellule(TypeObstacle type, Vec2 position) {
+		if(this.type == TypeObstacle.LASER   ||
+		   this.type == TypeObstacle.MIROIR  ||
+		   this.type == TypeObstacle.SRC_LASER)
+		{
+			throw new java.lang.Error("You need an orientation to build LASER/MIROIR/SRC_LASER");
+		}
+
 		this.type = type;
 		this.position = position;
 		this.orientation = orientation;
@@ -24,8 +31,22 @@ public class Cellule {
 		this.orientation = orientation;
 	}
 
+	public Cellule(Vec2 position, Vec2 orientation) {
+		this.position = position;
+		this.orientation = orientation;
+	}
+
 	// Méthodes
 	public String toString() {
+		if(this instanceof Noeud)
+		{
+			String buff = "";
+			buff +=  "Pos : (" + this.getPosition().getX() + ", " + this.getPosition().getY() + ")";
+			buff += "\n";
+			buff +=  "Ori : (" + this.getOrientation().getX() + ", " + this.getOrientation().getY() + ")";
+			return buff;
+		}
+
 		switch(this.type) {
 			case VIDE:
         		return "_";
@@ -35,6 +56,8 @@ public class Cellule {
       			return "|";
       		case SRC_LASER:
       			return "o";
+      		case LASER:
+      			return "L";
 		}
 
 		return " ";

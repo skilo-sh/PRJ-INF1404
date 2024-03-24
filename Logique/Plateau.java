@@ -4,6 +4,7 @@ package Logique;
 // J'ai besoin de ces classes pour travailler
 import Logique.Utils.TypeObstacle;
 import Logique.Utils.Vec2;
+import java.util.ArrayList;
 import java.util.Stack;
 
 public class Plateau {
@@ -18,6 +19,7 @@ public class Plateau {
 		// Mise à jour des attributs
 		this.sourceLaser = sourceLaser;
 		this.estSolutionne = false;
+		this.dimensions = dim;
 		this.grille = new Cellule[dim.getY()][dim.getX()];
 
 		// Remplissage de vide sur toute les cases
@@ -41,21 +43,36 @@ public class Plateau {
 		Stack<Noeud> maStack = new Stack<Noeud>();
 
 		// Création et ajout du Noeud initiale sur la Stack
-		Noeud nInitiale = new Noeud(this, this.sourceLaser);
+		Noeud nInitiale = new Noeud(this.sourceLaser);
 		maStack.push(nInitiale);
 
 		// Tant que la stack n'est pas vide...
+		int i = 0;
 		while(!maStack.isEmpty())
 		{
+			System.out.println("Tour : " + i);
 			// On mets dans `nCourant` le top de la stack
 			Noeud nCourant = maStack.pop();
 
 			// On mets à jour le Plateau en fonction du `nCourant`
-			this.update(nCourant);
+			// this.update(nCourant);
 
 			// On push sur la stack chaque fils de `nCourant`
-			for(Noeud n : nCourant.getFils())
+			ArrayList<Noeud> lesFils = nCourant.getFils(this);
+			if(lesFils.size() == 0)
+			{
+				System.out.println("Fin de chemin");
+			}
+			for(Noeud n : lesFils)
+			{
+				System.out.println(n);
+				System.out.println(n.getFils(this));
 				maStack.push(n);
+			}
+
+			i ++;
+			// if(i >= 3)
+			// 	break;
 		}
 
 		return true;
@@ -86,9 +103,25 @@ public class Plateau {
 					this.grille[y][x].setType(TypeObstacle.VIDE);
 	}
 
+	public boolean isValidCoordinate(int x, int y)
+	{
+		if((x < 0 || y < 0) || 
+		   (x >= this.dimensions.getX() || y >= this.dimensions.getY()))
+		{
+			return false;
+		} else { 
+			return true;
+		}
+	}
+
 	// Getter
 	public Cellule[][] getGrille()
 	{
 		return this.grille;
+	}
+
+	public Cellule getSourceLaser()
+	{
+		return this.sourceLaser;
 	}
 }
