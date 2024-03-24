@@ -57,6 +57,17 @@ public class Cellule {
 		return this.position;
 	}
 
+	public TypeObstacle getType()
+	{
+		return this.type;
+	}
+
+	public void setType(TypeObstacle t)
+	{
+		this.type = t;
+		return; 
+	}
+
 	public Vec2 getOrientation()
 	{
 		return this.orientation;

@@ -37,14 +37,27 @@ public class Plateau {
 	// Méthodes
 	public boolean resoudre()
 	{
-		Situation s_initiale = new Situation(this, this.sourceLaser);
-		System.out.println(s_initiale.getEvolutions().get(0));
-		while (!this.estSolutionne)
+		// Création de la stack vide
+		Stack<Noeud> maStack = new Stack<Noeud>();
+
+		// Création et ajout du Noeud initiale sur la Stack
+		Noeud nInitiale = new Noeud(this, this.sourceLaser);
+		maStack.push(nInitiale);
+
+		// Tant que la stack n'est pas vide...
+		while(!maStack.isEmpty())
 		{
-			this.estSolutionne = true;
+			// On mets dans `nCourant` le top de la stack
+			Noeud nCourant = maStack.pop();
+
+			// On mets à jour le Plateau en fonction du `nCourant`
+			this.update(nCourant);
+
+			// On push sur la stack chaque fils de `nCourant`
+			for(Noeud n : nCourant.getFils())
+				maStack.push(n);
 		}
 
-		System.out.println("Problem solved !");
 		return true;
 	}
 
@@ -63,6 +76,14 @@ public class Plateau {
 
 	public void ajoutObstacle(Vec2 emplacement) {
 		this.grille[emplacement.getY()][emplacement.getX()] = new Cellule(TypeObstacle.MUR, new Vec2(emplacement.getY(), emplacement.getX()));
+	}
+
+	public void reset()
+	{
+		for(int y = 0; y < this.grille.length; y++)
+			for(int x = 0; x < this.grille.length; x++)
+				if(this.grille[y][x].getType() == TypeObstacle.MUR || this.grille[y][x].getType() == TypeObstacle.LASER)
+					this.grille[y][x].setType(TypeObstacle.VIDE);
 	}
 
 	// Getter
