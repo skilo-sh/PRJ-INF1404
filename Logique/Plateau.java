@@ -39,6 +39,20 @@ public class Plateau {
 	// Méthodes
 	public boolean resoudre()
 	{
+		// On initialise la stack de backtrace
+		Stack<Cellule> maStack = new Stack<Cellule>();
+
+		// On y ajoute la cellule initiale (celle juste devant la source du laser)
+		maStack.push(this.sourceLaser.getFirstCellule(this));
+
+		// Tant que la stack n'est pas vide ...
+		while(!maStack.empty())
+		{
+			Cellule CelluleTop = maStack.peek();
+			Cellule CelluleSuivante = CelluleTop.nextCellule();
+			return true;
+		}
+
 		return true;
 	}
 
