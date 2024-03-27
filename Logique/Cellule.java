@@ -8,9 +8,9 @@ import Logique.Utils.Vec2;
 
 public class Cellule {
 	// Attributs
+	protected Vec2 position;    // (X, Y) contrairement aux accès d'array qui se font en [Y][X]
+	protected Vec2 orientation; // X c'est ±1/0 et Y c'est ±1/0 aussi
 	protected TypeObstacle type;
-	protected Vec2 position; // (X, Y) contrairement aux accès d'array qui se font en [Y][X]
-	protected Vec2 orientation; // X c'est ±1 et Y c'est ±1 aussi
 	protected Direction directionSuivante;
 
 	// Constructeurs
@@ -40,58 +40,41 @@ public class Cellule {
 	// Méthodes
 	public String toString()
 	{
-		String buff = "";
-		// if(this.orientation == null)
-		// {
-		// 	buff += "|" + this.position + " ";
-		// }
-		// else
-		// {
-		// 	buff += "|" + this.position + " " + this.orientation + " ";
-		// 			} 
-
-		switch(this.type) {
+		switch(this.type)
+		{
 			case VIDE:
-        		buff += "_";
-        		break;
+        		return "_";
       		case MUR:
-      			buff += "X";
-      			break;
+      			return "X";
       		case MIROIR:
-      			buff += "|";
-      			break;
+      			return "|";
       		case SRC_LASER:
-      			buff += "o";
-      			break;
+      			return "o";
       		case LASER:
-      			buff += "L";
-      			break;
+      			return "L";
 		}
 
-		return buff;
+		return " ";
 	}
 
-	public boolean est_libre()
+	public boolean estLibre()
 	{
 		if(this.type != TypeObstacle.MUR     &
 		   this.type != TypeObstacle.MIROIR  & 
 		   this.type != TypeObstacle.SRC_LASER)
-		{
 			return true;
-		} else {
+		else
 			return false;
-		}
 	}
 
+	// TODO : Cette méthode néglige le gauche/droite sur le premier déplacement, à changer
 	public Cellule getFirstCellule(Plateau p)
 	{
 		if(this.type != TypeObstacle.SRC_LASER)
-			throw new java.lang.Error("Impossible d'utiliser cette méthode si tu n'est pas la source laser :(");
+			throw new java.lang.Error("Impossible d'utiliser cette méthode si tu n'es pas la source laser :(");
 
 		int new_y = this.position.getY() + this.orientation.getY();
 		int new_x = this.position.getX() + this.orientation.getX();
-
-		System.out.println(new_x + " " + new_y + " test");
 
 		if(!p.isValidCoordinate(new_x,  new_y))
 			throw new java.lang.Error("La source laser est mal placée/orientée :(");
@@ -116,13 +99,14 @@ public class Cellule {
 		{
 			case GAUCHE:
 			{
+				System.out.println("GAUCHE");
 				this.directionSuivante = Direction.DEVANT;
 				if(isVertical)
 				{
 					new_pos = new Vec2(np.getX() + no.getY(), np.getY());
 
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-					   !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
+					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
 						this.directionSuivante = Direction.DEVANT;
 						return this.choixSuivant(p);
@@ -134,27 +118,28 @@ public class Cellule {
 					new_pos = new Vec2(np.getX(), np.getY() - no.getX());
 
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-					   !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
+					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
 						this.directionSuivante = Direction.DEVANT;
 						return this.choixSuivant(p);
 					}
 
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
-					newCellule.setOrientation(new Vec2(0, 1));
+					newCellule.setOrientation(new Vec2(0, -1));
 				}
 				return newCellule;
 			}
 				
 			case DEVANT:
 			{
+				System.out.println("DVT");
 				this.directionSuivante = Direction.DROITE;
 				if(isVertical)
 				{
 					new_pos = new Vec2(np.getX(), np.getY() + no.getY());
 
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-					   !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
+					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
 						this.directionSuivante = Direction.DROITE;
 						return this.choixSuivant(p);
@@ -166,7 +151,7 @@ public class Cellule {
 					new_pos = new Vec2(np.getX() + no.getX(), np.getY());
 
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-					   !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
+					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
 						this.directionSuivante = Direction.DROITE;
 						return this.choixSuivant(p);
@@ -176,36 +161,18 @@ public class Cellule {
 					newCellule.setOrientation(new Vec2(no.getX(), no.getY()));
 				}
 				return newCellule;
-				// this.directionSuivante = Direction.DROITE;
-				// new_pos = this.getPosition();
-				// if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-				//    !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
-				// {
-				// 	this.directionSuivante = Direction.DROITE;
-				// 	return this.choixSuivant(p);
-				// }
-
-				// newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
-
-				// if(isVertical)
-				// {
-				// 	newCellule.setOrientation(new Vec2(0, no.getY()));
-				// } else {
-				// 	newCellule.setOrientation(new Vec2(no.getX(), 0));
-				// }
-
-				// return newCellule;
 			}
 			
 			case DROITE:
 			{
+				System.out.println("DROITE");
 				this.directionSuivante = Direction.FINIT;
 				if(isVertical)
 				{
 					new_pos = new Vec2(np.getX() - no.getY(), np.getY());
 
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-					   !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
+					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
 						return null;
 					}
@@ -216,7 +183,7 @@ public class Cellule {
 					new_pos = new Vec2(np.getX(), np.getY() + no.getX());
 
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
-					   !p.getGrille()[new_pos.getY()][new_pos.getX()].est_libre())
+					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
 						return null;
 					}
@@ -229,22 +196,14 @@ public class Cellule {
 			case FINIT:
 				return null;
 			default:
-				throw new java.lang.Error("Je suis inatteignable");
+				throw new java.lang.Error("Unreachable !!!");
 		}
 	}
 
+	// Des Getters et des Setters
 	public Vec2 getPosition(){return this.position;}
 	public TypeObstacle getType(){return this.type;}
 	public Vec2 getOrientation(){return this.orientation;}
-	public void setType(TypeObstacle t)
-	{
-		this.type = t;
-		return; 
-	}
-	public void setOrientation(Vec2 o)
-	{
-		this.orientation = o;
-		return; 
-	}
-
+	public void setType(TypeObstacle t){this.type = t;return;}
+	public void setOrientation(Vec2 o){this.orientation = o;return;}
 }

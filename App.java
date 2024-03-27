@@ -4,29 +4,33 @@ import Logique.Utils.TypeObstacle;
 import Logique.Utils.Vec2;
 import Graphique.Affichage;
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.event.*;import java.util.Random;
 
-/* Todo :
-    - Gérer l'erreur posssible d'out of bounds sur la grille dans Situation.java
-    - Vérifier tous les code de getFils car surement des issues
+/* 
+    Todo :
+        - Changer la manière de choisir la première Cellule, la méthode actuel empêche le gauche/droite en première action ;
+        - Lors de l'affichage différencier miroir et laser ;
+        - ...
 */
 
 public class App {
     public static void main(String[] args) {
-        Vec2 maDimension = new Vec2(5, 4);
+        Vec2 maDimension = new Vec2(20, 13);
         Cellule maSrcLaser  = new Cellule(TypeObstacle.SRC_LASER, new Vec2(2, 2), new Vec2(0, -1));
-        Cellule[] mesObstacles = { 
-            new Cellule(TypeObstacle.MUR, new Vec2(1, 2)),
-            new Cellule(TypeObstacle.MUR, new Vec2(2, 3)),
-            new Cellule(TypeObstacle.MUR, new Vec2(3, 2)),
-            // new Cellule(TypeObstacle.MUR, new Vec2(3, 1)),
-            // new Cellule(TypeObstacle.MUR, new Vec2(0, 0)),
-            new Cellule(TypeObstacle.MUR, new Vec2(1, 1))
-        };
+
+        // Remplissage avec 50 murs choisit aléatoirement
+        Cellule[] mesObstacles = new Cellule[50];
+        Random rand = new Random();
+        for(int i = 0; i < 50; i++)
+        {
+            int rand_y = rand.nextInt(13);
+            int rand_x = rand.nextInt(20);
+
+            mesObstacles[i] = new Cellule(TypeObstacle.MUR, new Vec2(rand_x, rand_y));
+        }
 
         Plateau p = new Plateau(maDimension, maSrcLaser, mesObstacles);
         System.out.print(p);
         p.resoudre();
-        // JFrame frame = new Affichage();
     }
 }
