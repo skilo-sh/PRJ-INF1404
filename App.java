@@ -13,13 +13,13 @@ import java.awt.event.*;
 
 public class App {
     public static void main(String[] args) {
-        Vec2 maDimension = new Vec2(4, 4);
+        Vec2 maDimension = new Vec2(5, 4);
         Cellule maSrcLaser  = new Cellule(TypeObstacle.SRC_LASER, new Vec2(2, 2), new Vec2(0, -1));
         Cellule[] mesObstacles = { 
             new Cellule(TypeObstacle.MUR, new Vec2(1, 2)),
             new Cellule(TypeObstacle.MUR, new Vec2(2, 3)),
             new Cellule(TypeObstacle.MUR, new Vec2(3, 2)),
-            new Cellule(TypeObstacle.MUR, new Vec2(3, 1)),
+            // new Cellule(TypeObstacle.MUR, new Vec2(3, 1)),
             // new Cellule(TypeObstacle.MUR, new Vec2(0, 0)),
             new Cellule(TypeObstacle.MUR, new Vec2(1, 1))
         };

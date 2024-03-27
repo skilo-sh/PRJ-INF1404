@@ -75,6 +75,6 @@ public class Vec2 {
     // Méthode pour afficher ce vecteur sous forme de chaîne de caractères
     @Override
     public String toString() {
-        return "(" + x + ", " + y + ")";
+        return "(" + this.x + ", " + this.y + ")";
     }
 }

@@ -25,7 +25,7 @@ public class Plateau {
 		// Remplissage de vide sur toute les cases
 		for(int y = 0; y < this.grille.length; y++)
 			for(int x = 0; x < this.grille.length; x++)
-				this.grille[y][x] = new Cellule(TypeObstacle.VIDE, new Vec2(y, x));
+				this.grille[y][x] = new Cellule(TypeObstacle.VIDE, new Vec2(x, y));
 
 		// Remplissage des obstacles
 		for(Cellule obs : obstacles)
@@ -43,17 +43,48 @@ public class Plateau {
 		Stack<Cellule> maStack = new Stack<Cellule>();
 
 		// On y ajoute la cellule initiale (celle juste devant la source du laser)
-		maStack.push(this.sourceLaser.getFirstCellule(this));
+		Cellule c = this.sourceLaser.getFirstCellule(this);
+		this.tempUpdate(c);
+		maStack.push(c);
 
 		// Tant que la stack n'est pas vide ...
+		int counter = 0;
 		while(!maStack.empty())
 		{
-			Cellule CelluleTop = maStack.peek();
-			Cellule CelluleSuivante = CelluleTop.nextCellule();
-			return true;
+			// if(counter > 5)
+			// 	break;
+			// On récupère le top de la stack
+			Cellule cellulePeek = maStack.peek();
+			// Et la cellule suivante
+			System.out.println(cellulePeek + " " + cellulePeek.getPosition() + cellulePeek.getOrientation());
+			Cellule celluleSuivante = cellulePeek.choixSuivant(this);
+			System.out.println("Counter = " + counter);
+			// System.out.println(celluleSuivante.getPosition()  + ""+ celluleSuivante.getOrientation());
+
+			// Si la cellule courante ne trouve pas de chemin
+			if(celluleSuivante == null)
+			{
+				System.out.println("Je touche le fond");
+				maStack.pop();
+			}
+			else
+			{
+				this.tempUpdate(celluleSuivante);
+				maStack.push(celluleSuivante);
+			} 
+			System.out.print(this);
+
+			// break;
+			counter += 1;
 		}
 
 		return true;
+	}
+
+	public void tempUpdate(Cellule c)
+	{
+		Vec2 np = c.getPosition(); 
+		this.grille[np.getY()][np.getX()].setType(TypeObstacle.LASER);
 	}
 
 	public String toString() {
