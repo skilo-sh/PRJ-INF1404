@@ -121,7 +121,7 @@ public  class PanResolution extends JPanel
                   break; 
 
                case LASER:
-                  button = new LaserButton(parent.p[i][j].getOrientation());
+                  button = new LaserButton(parent.p[i][j].getOrientation(),true);
                   parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 
