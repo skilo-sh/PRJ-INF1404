@@ -83,7 +83,7 @@ public class Cellule {
 		Cellule firstCellule = p.getGrille()[new_y][new_x];
 
 		if(!firstCellule.estLibre())
-			throw new java.lang.Error("La source laser est mal placée/orientée :(");
+			throw new java.lang.Error("La source laser est mal placée/orientée :(\n(obstacle devant le laser)");
 
 		firstCellule.setOrientation(this.orientation);
 		return firstCellule;
