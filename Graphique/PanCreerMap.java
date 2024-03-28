@@ -21,6 +21,7 @@ public class PanCreerMap extends JPanel{
 		{
 			for (int j = 0 ; j < parent.WIDTH ; j++)
 			{
+				System.out.println(i);
 				int x = i;
 				int y = j;
 				JButton button = new JButton("");

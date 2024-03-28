@@ -14,8 +14,8 @@ public class Affichage extends JFrame {
    private JPanel currentPanel ;
    private JMenuItem chargerItem;
    private JMenuItem enregistrerItem;
-   public final int WIDTH = 22;
-   public final int HEIGHT = 13;
+   public final int WIDTH = 5;
+   public final int HEIGHT = 5;
    public Cellule[][] p;
 
    public Affichage() {
@@ -25,7 +25,7 @@ public class Affichage extends JFrame {
         {
          for(int j = 0; j<WIDTH; j++)
          {
-            p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(1, 2));
+            p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i, j));
          }
         }
       WindowListener l = new WindowAdapter() 
@@ -126,11 +126,11 @@ public class Affichage extends JFrame {
                      {
                         if(ligne.charAt(j) == 'X')
                         {
-                           p[i][j]=new Cellule(TypeObstacle.MUR, new Vec2(1, 2));
+                           p[i][j]=new Cellule(TypeObstacle.MUR, new Vec2(i, j));
                         }
                         else if (ligne.charAt(j) == '_')
                         {
-                           p[i][j]=new Cellule(TypeObstacle.VIDE, new Vec2(1, 2));
+                           p[i][j]=new Cellule(TypeObstacle.VIDE, new Vec2(i, j));
                         }
                      }
                   }

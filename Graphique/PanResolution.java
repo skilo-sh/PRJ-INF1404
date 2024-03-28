@@ -20,6 +20,7 @@ public  class PanResolution extends JPanel
             int x = i;
             int y = j;
             JButton button = new JButton("");
+            System.out.println(i);
             switch(parent.p[i][j].getType()) 
             {
                case VIDE:
@@ -120,7 +121,6 @@ public  class PanResolution extends JPanel
 
                case LASER:
                   button = new LaserButton(parent.p[i][j].getOrientation());
-                  button.setBackground(Color.RED);
                   parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 
