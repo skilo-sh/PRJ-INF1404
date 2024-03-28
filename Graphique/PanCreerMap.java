@@ -17,7 +17,6 @@ public class PanCreerMap extends JPanel{
 
         // Initialisation de la disposition en grille après l'appel du constructeur de la classe parente
         setLayout(new GridLayout(parent.HEIGHT, parent.WIDTH));
-
 		for ( int i = 0 ; i < parent.HEIGHT ; i++)
 		{
 			for (int j = 0 ; j < parent.WIDTH ; j++)
