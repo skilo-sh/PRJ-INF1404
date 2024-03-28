@@ -14,6 +14,8 @@ public class Plateau {
 	Cellule[][] grille;
 	Cellule sourceLaser;
 	boolean estSolutionne;
+	int scoreMeilleureGrille;
+	Cellule[][] meilleureGrille;
 
 	// Constructeur
 	public Plateau(Vec2 dim, Cellule sourceLaser, Cellule[] obstacles)
@@ -22,6 +24,7 @@ public class Plateau {
 		this.sourceLaser = sourceLaser;
 		this.estSolutionne = false;
 		this.dimensions = dim;
+		this.scoreMeilleureGrille = 0;
 		this.grille = new Cellule[dim.getY()][dim.getX()];
 
 		// Remplissage de VIDE sur toutes les cases
@@ -38,7 +41,7 @@ public class Plateau {
 	}
 
 	// Méthodes
-	public boolean resoudre()
+	public void resoudre()
 	{
 		// On initialise la stack de backtrace
 		Stack<Cellule> maStack = new Stack<Cellule>();
@@ -46,6 +49,7 @@ public class Plateau {
 		// Todo : Changer cette manière de faire
 		// On y ajoute la cellule initiale (celle juste devant la source du laser)
 		Cellule c = this.sourceLaser.getFirstCellule(this);
+		c.setType(TypeObstacle.LASER);
 		this.tempUpdate(c);
 		maStack.push(c);
 
@@ -53,25 +57,27 @@ public class Plateau {
 		int counter = 0;
 		while(!maStack.empty())
 		{
-			try 
-			{
-    			TimeUnit.SECONDS.sleep(1);
-			}
-			catch (InterruptedException ie)
-			{
-    			Thread.currentThread().interrupt();
-			}
+			// try 
+			// {
+    		// 	TimeUnit.SECONDS.sleep(1);
+			// }
+			// catch (InterruptedException ie)
+			// {
+    		// 	Thread.currentThread().interrupt();
+			// }
 		
 			// On récupère le top de la stack
 			Cellule cellulePeek = maStack.peek();
 			// Et la cellule suivante
+			// System.out.println("truc :" + cellulePeek);
 			Cellule celluleSuivante = cellulePeek.choixSuivant(this);
 			System.out.println("Counter = " + counter);
 
 			// Si la cellule courante ne trouve pas de chemin
 			if(celluleSuivante == null)
 			{
-				System.out.println("Je touche le fond");
+				this.majMeilleureGrille();
+				// System.out.println("Je touche le fond");
 				this.tempUpdate2(maStack.pop());
 			}
 			else
@@ -79,18 +85,49 @@ public class Plateau {
 				maStack.push(celluleSuivante);
 				this.tempUpdate(celluleSuivante);
 			} 
-			System.out.print(this);
+			// System.out.print(this);
 
 			counter += 1;
 		}
+	}
 
-		return true;
+	public void majMeilleureGrille()
+	{
+		int current_score = this.getScore();
+		if(current_score > scoreMeilleureGrille)
+		{
+			System.out.println(this);
+			this.meilleureGrille = this.copyCurrentGrille();
+			this.scoreMeilleureGrille = current_score;
+		}
+	}
+
+	public int getScore()
+	{
+		int score = 0;
+		for(int y = 0; y < this.dimensions.getY(); y++)
+			for(int x = 0; x < this.dimensions.getX(); x++)
+				if(this.grille[y][x].getType() == TypeObstacle.LASER || this.grille[y][x].getType() == TypeObstacle.MIROIR)
+					score ++;
+		return score;
+	}
+
+	public Cellule[][] copyCurrentGrille()
+	{
+		Cellule[][] newGrille = new Cellule[this.dimensions.getY()][this.dimensions.getX()];
+
+		// Remplissage de VIDE sur toutes les cases
+		for(int y = 0; y < this.dimensions.getY(); y++)
+			for(int x = 0; x < this.dimensions.getX(); x++)
+				newGrille[y][x] = this.grille[y][x].copy();
+
+		return newGrille;
 	}
 
 	public void tempUpdate(Cellule c)
 	{
 		Vec2 np = c.getPosition(); 
-		this.grille[np.getY()][np.getX()].setType(TypeObstacle.LASER);
+		this.grille[np.getY()][np.getX()].setType(c.getType());
 	}
 	public void tempUpdate2(Cellule c)
 	{
@@ -138,4 +175,6 @@ public class Plateau {
 	// Des Getters
 	public Cellule[][] getGrille(){return this.grille;}
 	public Cellule getSourceLaser(){return this.sourceLaser;}
+	public Cellule[][] getMeilleureGrille(){return this.meilleureGrille;}
+	public int  getScoreMeilleureGrille(){return this.scoreMeilleureGrille;}
 }

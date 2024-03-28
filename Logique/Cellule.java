@@ -37,6 +37,7 @@ public class Cellule {
 		this.directionSuivante = Direction.GAUCHE;
 	}
 
+
 	// Méthodes
 	public String toString()
 	{
@@ -67,7 +68,7 @@ public class Cellule {
 			return false;
 	}
 
-	// TODO : Cette méthode néglige le gauche/droite sur le premier déplacement, à changer
+	// Récupération de la cellule juste devant le laser
 	public Cellule getFirstCellule(Plateau p)
 	{
 		if(this.type != TypeObstacle.SRC_LASER)
@@ -80,8 +81,11 @@ public class Cellule {
 			throw new java.lang.Error("La source laser est mal placée/orientée :(");
 
 		Cellule firstCellule = p.getGrille()[new_y][new_x];
-		firstCellule.setOrientation(this.orientation);
 
+		if(!p.isValidCoordinate(new_x,  new_y))
+			throw new java.lang.Error("La source laser est mal placée/orientée :(");
+
+		firstCellule.setOrientation(this.orientation);
 		return firstCellule;
 	}
 
@@ -90,7 +94,7 @@ public class Cellule {
 		// Récupération de la position et orientation de la cellule actuel
 		Vec2 np = this.getPosition();
 		Vec2 no = this.getOrientation();
-
+		System.out.println("c'est thiiiis" + this);
 		// Determination de l'orientation du laser
 		boolean isVertical = no.getY() == 1 || no.getY() == -1 ? true : false;
 		Vec2 new_pos; Cellule newCellule;
@@ -99,7 +103,7 @@ public class Cellule {
 		{
 			case GAUCHE:
 			{
-				System.out.println("GAUCHE");
+				// Dans tous les cas le prochain essais doit être d'aller devant
 				this.directionSuivante = Direction.DEVANT;
 				if(isVertical)
 				{
@@ -108,12 +112,11 @@ public class Cellule {
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
 					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
-						this.directionSuivante = Direction.DEVANT;
 						return this.choixSuivant(p);
 					}
 
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
-					newCellule.setOrientation(new Vec2(-1, 0));
+					newCellule.setOrientation(new Vec2(no.getY(), 0));
 				} else {
 					new_pos = new Vec2(np.getX(), np.getY() - no.getX());
 
@@ -125,14 +128,15 @@ public class Cellule {
 					}
 
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
-					newCellule.setOrientation(new Vec2(0, -1));
+					newCellule.setOrientation(new Vec2(0, -no.getX()));
 				}
+				newCellule.setType(TypeObstacle.MIROIR);
 				return newCellule;
 			}
 				
 			case DEVANT:
 			{
-				System.out.println("DVT");
+				// Dans tous les cas le prochain essais doit être d'aller à droite
 				this.directionSuivante = Direction.DROITE;
 				if(isVertical)
 				{
@@ -160,12 +164,13 @@ public class Cellule {
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
 					newCellule.setOrientation(new Vec2(no.getX(), no.getY()));
 				}
+				newCellule.setType(TypeObstacle.LASER);
 				return newCellule;
 			}
 			
 			case DROITE:
 			{
-				System.out.println("DROITE");
+				// Dans tous les cas le prochain essais doit être de backtrack
 				this.directionSuivante = Direction.FINIT;
 				if(isVertical)
 				{
@@ -178,7 +183,7 @@ public class Cellule {
 					}
 
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
-					newCellule.setOrientation(new Vec2(1, 0));
+					newCellule.setOrientation(new Vec2(-no.getY(), 0));
 				} else {
 					new_pos = new Vec2(np.getX(), np.getY() + no.getX());
 
@@ -188,8 +193,9 @@ public class Cellule {
 						return null;
 					}
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
-					newCellule.setOrientation(new Vec2(0, 1));
+					newCellule.setOrientation(new Vec2(0, no.getX()));
 				}
+				newCellule.setType(TypeObstacle.MIROIR);
 				return newCellule;
 			}
 
@@ -198,6 +204,11 @@ public class Cellule {
 			default:
 				throw new java.lang.Error("Unreachable !!!");
 		}
+	}
+
+	public Cellule copy()
+	{
+		return new Cellule(this.getType(), this.getPosition(), this.getOrientation());
 	}
 
 	// Des Getters et des Setters
