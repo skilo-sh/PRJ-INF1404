@@ -74,6 +74,7 @@ public class Cellule {
 		   this.type != TypeObstacle.MIROIR2  & 
 		   this.type != TypeObstacle.MIROIR3  & 
 		   this.type != TypeObstacle.MIROIR4  & 
+		   this.type != TypeObstacle.LASER  & 
 		   this.type != TypeObstacle.SRC_LASER)
 			return true;
 		else

@@ -116,6 +116,15 @@ public class Plateau {
 		return score;
 	}
 
+	public boolean estSolutionne()
+	{
+		for(int y = 0; y < this.dimensions.getY(); y++)
+			for(int x = 0; x < this.dimensions.getX(); x++)
+				if(this.grille[y][x].getType() == TypeObstacle.VIDE)
+					return false;
+		return true;
+	}
+
 	public Cellule[][] copyCurrentGrille()
 	{
 		Cellule[][] newGrille = new Cellule[this.dimensions.getY()][this.dimensions.getX()];
@@ -136,8 +145,8 @@ public class Plateau {
 	public void tempUpdate2(Cellule c)
 	{
 		Vec2 np = c.getPosition();
-		if(c.getType() != TypeObstacle.LASER)
-			this.grille[np.getY()][np.getX()].setType(TypeObstacle.VIDE);
+		// if(c.getType() != TypeObstacle.LASER)
+		this.grille[np.getY()][np.getX()].setType(TypeObstacle.VIDE);
 	}
 
 	public String toString() {
