@@ -49,6 +49,6 @@ public class App {
         System.out.println(buff);
         // Affichage du meilleur score
         System.out.println(p.getScoreMeilleureGrille());
-        // Affichage affichage = new Affichage();
+        Affichage affichage = new Affichage();
     }
 }
