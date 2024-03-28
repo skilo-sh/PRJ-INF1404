@@ -44,7 +44,7 @@ public  class PanResolution extends JPanel
                if(button.getBackground()==Color.WHITE)
                {
                   button.setBackground(Color.RED);
-                  parent.p[x][y] = new Cellule(TypeObstacle.SRC_LASER, new Vec2(x, y),new Vec2(0,-1));
+                  parent.p[x][y] = new Cellule(TypeObstacle.SRC_LASER, new Vec2(y, x),new Vec2(0,-1));
                   revalidate();
                   repaint();
                   lancer_resolution(parent,parent.p[x][y]);
@@ -78,7 +78,7 @@ public  class PanResolution extends JPanel
          {
             if (parent.p[i][j].getType() == TypeObstacle.MUR)
             {
-            mesObstacles[cpt] =  new Cellule(TypeObstacle.MUR, new Vec2(i, j)); 
+            mesObstacles[cpt] =  new Cellule(TypeObstacle.MUR, new Vec2(j, i)); 
             cpt ++;
             }
          }
@@ -121,7 +121,7 @@ public  class PanResolution extends JPanel
                   break; 
 
                case LASER:
-                  button = new LaserButton(parent.p[i][j].getOrientation());
+                  button = new LaserButton(parent.p[i][j].getOrientation(),false);
                   parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 

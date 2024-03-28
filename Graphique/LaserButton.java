@@ -8,12 +8,11 @@ import Logique.Utils.Vec2;
 public class LaserButton extends JButton
 {	
 	Vec2 sens;
-	public LaserButton(Vec2 sens)
+	public LaserButton(Vec2 sens,boolean croise)
 	{
 		super("");
 		this.setBackground(Color.WHITE);
-		this.sens = sens;
-		System.out.println(this.sens);
+		this.sens = croise?new Vec2(1,1):sens;
 
 	} 
 
@@ -31,11 +30,15 @@ public class LaserButton extends JButton
         // Dessiner un trait rouge au centre du bouton
         
         g.setColor(Color.RED);
-        if (this.sens.getX() != 0) {
+        if (this.sens.getX() != 0) 
+        {
             g.drawLine(0, getHeight() / 2, getWidth(), getHeight() / 2);
 
-        } else if (this.sens.getY() != 0) {
+        }
+        if (this.sens.getY() != 0) 
+        {
             g.drawLine(getWidth() / 2, 0, getWidth() / 2, getHeight());
-        }    
+        }
+            
     }
 }
