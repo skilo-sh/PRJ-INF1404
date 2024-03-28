@@ -67,6 +67,14 @@ public class Vec2 {
         }
     }
 
+    public boolean eq(Vec2 o)
+    {
+        if(this.getX() == o.getX() && this.getY() == o.getY())
+            return true;
+
+        return false;
+    }
+
     // Méthode pour créer une copie de ce vecteur
     public Vec2 copy() {
         return new Vec2(this.x, this.y);

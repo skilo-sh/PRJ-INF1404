@@ -213,6 +213,11 @@ public class Cellule {
 		return new Cellule(this.getType(), this.getPosition(), this.getOrientation());
 	}
 
+	public void setMirrorOrientation(Vec2 old_orientation, Vec2 new_orientation)
+	{
+		if()
+	}
+
 	// Des Getters et des Setters
 	public Vec2 getPosition(){return this.position;}
 	public TypeObstacle getType(){return this.type;}
