@@ -56,11 +56,43 @@ public  class PanResolution extends JPanel
 
    private void lancer_resolution(Affichage parent)
    {  
-      //Vec2 maDimension = new Vec2(parent.WIDTH,parent.HEIGHT);
+      Vec2 maDimension = new Vec2(parent.WIDTH,parent.HEIGHT);
+      int cpt = 0;
+      for ( int i = 0 ; i < parent.HEIGHT; i++ )
+      {
+         for (int j = 0; j < parent.WIDTH; j++ )
+         {
+            if (parent.p[i][j].getType() == TypeObstacle.SRC_LASER)
+            {
+               Cellule maSrcLaser = new Cellule(TypeObstacle.SRC_LASER, new Vec2(i,j), new Vec2(0, -1));
+            }else if (parent.p[i][j].getType() == TypeObstacle.MUR)
+            {
+               cpt ++;
+            }
+         }
+      }
+      Cellule[] mesObstacles = new Cellule[cpt];
+      cpt = 0;
+      for ( int i = 0 ; i < parent.HEIGHT; i++ )
+      {
+         for (int j = 0; j < parent.WIDTH; j++ )
+         {
+            if (parent.p[i][j].getType() == TypeObstacle.MUR)
+            {
+            mesObstacles[cpt] =  new Cellule(TypeObstacle.MUR, new Vec2(i, j)); 
+            cpt ++;
+            }
+         }
+      }
+      
 
-      //Plateau plateau = new Plateau(maDimension, maSrcLaser, mesObstacles);
+      Plateau plateau = new Plateau(maDimension, maSrcLaser, mesObstacles);
       //lancer la resolution 
+      plateau.resoudre();
+      parent.p = p.getMeilleureGrille();
+
       removeAll();
+
       setLayout(new GridLayout(parent.HEIGHT, parent.WIDTH));
 
       for (int i = 0; i < parent.HEIGHT ; i++)
@@ -80,19 +112,19 @@ public  class PanResolution extends JPanel
                   break;  
 
                case MIROIR:
-                  button.setBackground(Color.GRAY);
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(2,1));
+                  button = new MirroirButton(parent.p.getOrientation());
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break;                  
 
                case SRC_LASER:
-                  button.setBackground(Color.RED);
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(2,1));
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 
-/*               case LASER:
+               case LASER:
+                  button = new LaserButton(parent.p.getOrientation());
                   button.setBackground(Color.RED);
-                  parentp.[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(2,1));
-                  break; */
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
+                  break; 
 
                   
             }
