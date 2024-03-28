@@ -71,7 +71,7 @@ public class Plateau {
 			// Et la cellule suivante
 			// System.out.println("truc :" + cellulePeek);
 			Cellule celluleSuivante = cellulePeek.choixSuivant(this);
-			System.out.println("Counter = " + counter);
+			// System.out.println("Counter = " + counter);
 
 			// Si la cellule courante ne trouve pas de chemin
 			if(celluleSuivante == null)
@@ -96,7 +96,7 @@ public class Plateau {
 		int current_score = this.getScore();
 		if(current_score > scoreMeilleureGrille)
 		{
-			System.out.println(this);
+			// System.out.println(this);
 			this.meilleureGrille = this.copyCurrentGrille();
 			this.scoreMeilleureGrille = current_score;
 		}

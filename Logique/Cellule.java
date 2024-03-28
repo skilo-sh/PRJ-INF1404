@@ -82,7 +82,7 @@ public class Cellule {
 
 		Cellule firstCellule = p.getGrille()[new_y][new_x];
 
-		if(!p.isValidCoordinate(new_x,  new_y))
+		if(!firstCellule.estLibre())
 			throw new java.lang.Error("La source laser est mal placée/orientée :(");
 
 		firstCellule.setOrientation(this.orientation);
@@ -94,7 +94,6 @@ public class Cellule {
 		// Récupération de la position et orientation de la cellule actuel
 		Vec2 np = this.getPosition();
 		Vec2 no = this.getOrientation();
-		System.out.println("c'est thiiiis" + this);
 		// Determination de l'orientation du laser
 		boolean isVertical = no.getY() == 1 || no.getY() == -1 ? true : false;
 		Vec2 new_pos; Cellule newCellule;

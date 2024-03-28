@@ -14,11 +14,11 @@ import java.awt.event.*;import java.util.Random;
 
 public class App {
     public static void main(String[] args) {
-        Vec2 maDimension = new Vec2(4, 4);
+        Vec2 maDimension = new Vec2(5, 5);
         Cellule maSrcLaser  = new Cellule(TypeObstacle.SRC_LASER, new Vec2(2, 2), new Vec2(0, -1));
 
         // Remplissage avec n murs choisit aléatoirement
-        int n = 2;
+        int n = 6;
         Cellule[] mesObstacles = new Cellule[n];
         Random rand = new Random();
         for(int i = 0; i < n; i++)
