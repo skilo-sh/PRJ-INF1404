@@ -25,7 +25,7 @@ public class PanCreerMap extends JPanel{
 				int x = i;
 				int y = j;
 				JButton button = new JButton("");
-				button.setBackground(parent.p[i][j].get_type()==TypeObstacle.VIDE?Color.WHITE:Color.BLACK);
+				button.setBackground(parent.p[i][j].getType()==TypeObstacle.VIDE?Color.WHITE:Color.BLACK);
 				button.addActionListener(e -> {
 					/*button.setBackground(button.getBackground()==Color.WHITE?Color.BLACK:Color.WHITE);*/
 

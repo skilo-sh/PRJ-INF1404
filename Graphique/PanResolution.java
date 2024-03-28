@@ -19,7 +19,7 @@ public  class PanResolution extends JPanel
             int x = i;
             int y = j;
             JButton button = new JButton("");
-            switch(parent.p[i][j].get_type()) 
+            switch(parent.p[i][j].getType()) 
             {
                case VIDE:
                   button.setBackground(Color.WHITE);
@@ -56,8 +56,9 @@ public  class PanResolution extends JPanel
 
    private void lancer_resolution(Affichage parent)
    {  
-      Vec2 maDimension = new Vec2(parent.WIDTH,parent.HEIGHT);
-      Plateau plateau = new Plateau(maDimension, maSrcLaser, mesObstacles);
+      //Vec2 maDimension = new Vec2(parent.WIDTH,parent.HEIGHT);
+
+      //Plateau plateau = new Plateau(maDimension, maSrcLaser, mesObstacles);
       //lancer la resolution 
       removeAll();
       setLayout(new GridLayout(parent.HEIGHT, parent.WIDTH));
@@ -68,7 +69,7 @@ public  class PanResolution extends JPanel
          {
             JButton button = new JButton("");
 
-            switch(parent.p[i][j].get_type()) 
+            switch(parent.p[i][j].getType()) 
             {
                case VIDE:
                   button.setBackground(Color.WHITE);                  
