@@ -28,10 +28,7 @@ public  class PanResolution extends JPanel
                   break;
                case MUR:
                   button.setBackground(Color.BLACK);
-                  break;                  
-               case MIROIR:
-                  button.setBackground(Color.GRAY);
-                  break;                  
+                  break;                                  
 
                case SRC_LASER:
                   button.setBackground(Color.RED);
@@ -110,10 +107,21 @@ public  class PanResolution extends JPanel
                   button.setBackground(Color.BLACK);
                   break;  
 
-               case MIROIR:
-                  button = new MiroirButton(parent.p[i][j].getOrientation());
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
-                  break;                  
+               case MIROIR1:
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(1,1));
+                  break; 
+
+               case MIROIR2:
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(1,-1));
+                  break;  
+
+               case MIROIR3:
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(-1,1));
+                  break;
+
+               case MIROIR4:
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(-1,-1));
+                  break;                       
 
                case SRC_LASER:
                   button.setBackground(Color.RED);
