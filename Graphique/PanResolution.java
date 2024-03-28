@@ -42,10 +42,10 @@ public  class PanResolution extends JPanel
                if(button.getBackground()==Color.WHITE)
                {
                   button.setBackground(Color.RED);
-                  parent.p[x][y] = new Cellule(TypeObstacle.SRC_LASER, new Vec2(1, 2),new Vec2(0,-1));
+                  parent.p[x][y] = new Cellule(TypeObstacle.SRC_LASER, new Vec2(x, y),new Vec2(0,-1));
                   revalidate();
                   repaint();
-                  lancer_resolution(parent);
+                  lancer_resolution(parent,parent.p[x][y]);
                }
             });
             add(button);
@@ -54,13 +54,42 @@ public  class PanResolution extends JPanel
       }
 	}
 
-   private void lancer_resolution(Affichage parent)
+   private void lancer_resolution(Affichage parent,Cellule maSrcLaser)
    {  
-      //Vec2 maDimension = new Vec2(parent.WIDTH,parent.HEIGHT);
+      Vec2 maDimension = new Vec2(parent.WIDTH,parent.HEIGHT);
+      int cpt = 0;
+      for ( int i = 0 ; i < parent.HEIGHT; i++ )
+      {
+         for (int j = 0; j < parent.WIDTH; j++ )
+         {
+            if (parent.p[i][j].getType() == TypeObstacle.MUR)
+            {
+               cpt ++;
+            }
+         }
+      }
+      Cellule[] mesObstacles = new Cellule[cpt];
+      cpt = 0;
+      for ( int i = 0 ; i < parent.HEIGHT; i++ )
+      {
+         for (int j = 0; j < parent.WIDTH; j++ )
+         {
+            if (parent.p[i][j].getType() == TypeObstacle.MUR)
+            {
+            mesObstacles[cpt] =  new Cellule(TypeObstacle.MUR, new Vec2(i, j)); 
+            cpt ++;
+            }
+         }
+      }
+      
 
-      //Plateau plateau = new Plateau(maDimension, maSrcLaser, mesObstacles);
+      Plateau plateau = new Plateau(maDimension, maSrcLaser, mesObstacles);
       //lancer la resolution 
+      plateau.resoudre();
+      parent.p = plateau.getMeilleureGrille();
+
       removeAll();
+
       setLayout(new GridLayout(parent.HEIGHT, parent.WIDTH));
 
       for (int i = 0; i < parent.HEIGHT ; i++)
@@ -80,19 +109,19 @@ public  class PanResolution extends JPanel
                   break;  
 
                case MIROIR:
-                  button.setBackground(Color.GRAY);
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(2,1));
+                  button = new MirroirButton(parent.p.getOrientation());
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break;                  
 
                case SRC_LASER:
-                  button.setBackground(Color.RED);
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(2,1));
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 
-/*               case LASER:
+               case LASER:
+                  button = new LaserButton(parent.p.getOrientation());
                   button.setBackground(Color.RED);
-                  parentp.[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(2,1));
-                  break; */
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
+                  break; 
 
                   
             }
