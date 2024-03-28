@@ -46,7 +46,6 @@ public class Plateau {
 		// On initialise la stack de backtrace
 		Stack<Cellule> maStack = new Stack<Cellule>();
 
-		// Todo : Changer cette manière de faire
 		// On y ajoute la cellule initiale (celle juste devant la source du laser)
 		Cellule c = this.sourceLaser.getFirstCellule(this);
 		c.setType(TypeObstacle.LASER);
@@ -108,7 +107,11 @@ public class Plateau {
 		int score = 0;
 		for(int y = 0; y < this.dimensions.getY(); y++)
 			for(int x = 0; x < this.dimensions.getX(); x++)
-				if(this.grille[y][x].getType() == TypeObstacle.LASER || this.grille[y][x].getType() == TypeObstacle.MIROIR)
+				if(this.grille[y][x].getType() == TypeObstacle.LASER   ||
+				   this.grille[y][x].getType() == TypeObstacle.MIROIR1 ||
+				   this.grille[y][x].getType() == TypeObstacle.MIROIR2 ||
+				   this.grille[y][x].getType() == TypeObstacle.MIROIR3 ||
+				   this.grille[y][x].getType() == TypeObstacle.MIROIR4 )
 					score ++;
 		return score;
 	}
