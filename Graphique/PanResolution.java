@@ -116,6 +116,7 @@ public  class PanResolution extends JPanel
                   break;                  
 
                case SRC_LASER:
+                  button.setBackground(Color.RED);
                   parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 
