@@ -21,13 +21,13 @@ public class App {
         int n = 2;
         Cellule[] mesObstacles = new Cellule[n];
         Random rand = new Random();
-        // for(int i = 0; i < n; i++)
-        // {
-        //     int rand_y = rand.nextInt(maDimension.getY());
-        //     int rand_x = rand.nextInt(maDimension.getX());
+        for(int i = 0; i < n; i++)
+        {
+            int rand_y = rand.nextInt(maDimension.getY());
+            int rand_x = rand.nextInt(maDimension.getX());
 
-        //     mesObstacles[i] = new Cellule(TypeObstacle.MUR, new Vec2(rand_x, rand_y));
-        // }
+            mesObstacles[i] = new Cellule(TypeObstacle.MUR, new Vec2(rand_x, rand_y));
+        }
         mesObstacles[0] = new Cellule(TypeObstacle.MUR, new Vec2(0, 0));
         mesObstacles[1] = new Cellule(TypeObstacle.MUR, new Vec2(2, 1));
 

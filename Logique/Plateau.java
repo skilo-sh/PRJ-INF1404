@@ -57,14 +57,14 @@ public class Plateau {
 		int counter = 0;
 		while(!maStack.empty())
 		{
-			try 
-			{
-    			TimeUnit.SECONDS.sleep(2);
-			}
-			catch (InterruptedException ie)
-			{
-    			Thread.currentThread().interrupt();
-			}
+			// try 
+			// {
+    		// 	TimeUnit.SECONDS.sleep(2);
+			// }
+			// catch (InterruptedException ie)
+			// {
+    		// 	Thread.currentThread().interrupt();
+			// }
 		
 			// On récupère le top de la stack
 			Cellule cellulePeek = maStack.peek();
@@ -85,8 +85,8 @@ public class Plateau {
 				maStack.push(celluleSuivante);
 				this.tempUpdate(celluleSuivante);
 			} 
-			System.out.print(this);
-			System.out.println("-----------");
+			// System.out.print(this);
+			// System.out.println("-----------");
 
 			counter += 1;
 		}
