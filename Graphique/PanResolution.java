@@ -5,6 +5,7 @@ import java.awt.*;
 import Logique.Cellule;
 import Logique.Utils.TypeObstacle;
 import Logique.Utils.Vec2;
+import Logique.Plateau;
 
 public  class PanResolution extends JPanel
 {
@@ -109,7 +110,7 @@ public  class PanResolution extends JPanel
                   break;  
 
                case MIROIR:
-                  button = new MirroirButton(parent.p.getOrientation());
+                  button = new MiroirButton(parent.p[i][j].getOrientation());
                   parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break;                  
 
@@ -118,7 +119,7 @@ public  class PanResolution extends JPanel
                   break; 
 
                case LASER:
-                  button = new LaserButton(parent.p.getOrientation());
+                  button = new LaserButton(parent.p[i][j].getOrientation());
                   button.setBackground(Color.RED);
                   parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
