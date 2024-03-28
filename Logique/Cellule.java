@@ -86,6 +86,7 @@ public class Cellule {
 			throw new java.lang.Error("La source laser est mal placée/orientée :(\n(obstacle devant le laser)");
 
 		firstCellule.setOrientation(this.orientation);
+		firstCellule.setType(TypeObstacle.LASER);
 		return firstCellule;
 	}
 
@@ -129,7 +130,8 @@ public class Cellule {
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
 					newCellule.setOrientation(new Vec2(0, -no.getX()));
 				}
-				newCellule.setType(TypeObstacle.MIROIR);
+				newCellule.setType(TypeObstacle.LASER);
+				this.setType(TypeObstacle.MIROIR);
 				return newCellule;
 			}
 				
@@ -194,7 +196,8 @@ public class Cellule {
 					newCellule = p.getGrille()[new_pos.getY()][new_pos.getX()];
 					newCellule.setOrientation(new Vec2(0, no.getX()));
 				}
-				newCellule.setType(TypeObstacle.MIROIR);
+				newCellule.setType(TypeObstacle.LASER);
+				this.setType(TypeObstacle.MIROIR);
 				return newCellule;
 			}
 
