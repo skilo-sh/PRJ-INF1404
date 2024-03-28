@@ -96,7 +96,7 @@ public  class PanResolution extends JPanel
          for (int j = 0; j < parent.WIDTH; j++)
          {
             JButton button = new JButton("");
-
+            System.out.println(parent.p[i][j].getType());
             switch(parent.p[i][j].getType()) 
             {
                case VIDE:
@@ -108,19 +108,23 @@ public  class PanResolution extends JPanel
                   break;  
 
                case MIROIR1:
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(1,1));
+                  button = new MiroirButton(new Vec2(-1,0));
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break; 
 
                case MIROIR2:
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(1,-1));
+                  button = new MiroirButton(new Vec2(1,0));
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break;  
 
                case MIROIR3:
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(-1,1));
+                  button = new MiroirButton(new Vec2(0,1));
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break;
 
                case MIROIR4:
-                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(-1,-1));
+                  button = new MiroirButton(new Vec2(0,-1));
+                  parent.p[i][j] = new Cellule(TypeObstacle.VIDE, new Vec2(i,j));
                   break;                       
 
                case SRC_LASER:
