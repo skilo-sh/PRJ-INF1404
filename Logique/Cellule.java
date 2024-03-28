@@ -16,8 +16,11 @@ public class Cellule {
 	// Constructeurs
 	public Cellule(TypeObstacle type, Vec2 position)
 	{
-		if(this.type == TypeObstacle.LASER   ||
-		   this.type == TypeObstacle.MIROIR  ||
+		if(this.type == TypeObstacle.LASER     ||
+		   this.type == TypeObstacle.MIROIR1   ||
+		   this.type == TypeObstacle.MIROIR2   ||
+		   this.type == TypeObstacle.MIROIR3   ||
+		   this.type == TypeObstacle.MIROIR4   ||
 		   this.type == TypeObstacle.SRC_LASER)
 		{
 			throw new java.lang.Error("You need an orientation to build LASER/MIROIR/SRC_LASER");
@@ -47,7 +50,13 @@ public class Cellule {
         		return "_";
       		case MUR:
       			return "X";
-      		case MIROIR:
+      		case MIROIR1:
+      			return "|";
+      		case MIROIR2:
+      			return "|";
+      		case MIROIR3:
+      			return "|";
+      		case MIROIR4:
       			return "|";
       		case SRC_LASER:
       			return "o";
@@ -60,8 +69,11 @@ public class Cellule {
 
 	public boolean estLibre()
 	{
-		if(this.type != TypeObstacle.MUR     &
-		   this.type != TypeObstacle.MIROIR  & 
+		if(this.type != TypeObstacle.MUR      &
+		   this.type != TypeObstacle.MIROIR1  & 
+		   this.type != TypeObstacle.MIROIR2  & 
+		   this.type != TypeObstacle.MIROIR3  & 
+		   this.type != TypeObstacle.MIROIR4  & 
 		   this.type != TypeObstacle.SRC_LASER)
 			return true;
 		else
@@ -131,7 +143,7 @@ public class Cellule {
 					newCellule.setOrientation(new Vec2(0, -no.getX()));
 				}
 				newCellule.setType(TypeObstacle.LASER);
-				this.setType(TypeObstacle.MIROIR);
+				this.setMirrorType(this.getOrientation(), newCellule.getOrientation());
 				return newCellule;
 			}
 				
@@ -197,7 +209,7 @@ public class Cellule {
 					newCellule.setOrientation(new Vec2(0, no.getX()));
 				}
 				newCellule.setType(TypeObstacle.LASER);
-				this.setType(TypeObstacle.MIROIR);
+				this.setMirrorType(this.getOrientation(), newCellule.getOrientation());
 				return newCellule;
 			}
 
@@ -213,9 +225,27 @@ public class Cellule {
 		return new Cellule(this.getType(), this.getPosition(), this.getOrientation());
 	}
 
-	public void setMirrorOrientation(Vec2 old_orientation, Vec2 new_orientation)
+	public void setMirrorType(Vec2 old_ori, Vec2 new_ori)
 	{
-		if()
+		if((old_ori.eq(new Vec2(0, -1)) && new_ori.eq(new Vec2(1, 0))) ||
+		   (old_ori.eq(new Vec2(-1, 0)) && new_ori.eq(new Vec2(0, 1))) )
+		{
+			this.setType(TypeObstacle.MIROIR1);
+		} else if((old_ori.eq(new Vec2(1, 0)) && new_ori.eq(new Vec2(0, -1))) ||
+				  (old_ori.eq(new Vec2(0, 1)) && new_ori.eq(new Vec2(-1, 0))) )
+		{
+			this.setType(TypeObstacle.MIROIR2);
+		} else if((old_ori.eq(new Vec2(0, 1)) && new_ori.eq(new Vec2(1, 0))) ||
+				  (old_ori.eq(new Vec2(-1, 0)) && new_ori.eq(new Vec2(0, -1))) )
+		{
+			this.setType(TypeObstacle.MIROIR3);
+		} else if((old_ori.eq(new Vec2(0, -1)) && new_ori.eq(new Vec2(-1, 0))) ||
+				  (old_ori.eq(new Vec2(1, 0)) && new_ori.eq(new Vec2(0, 1))) )
+		{
+			this.setType(TypeObstacle.MIROIR4);
+		} else {
+			throw new java.lang.Error("Oulalala, j'ai fait de la merde dans `setMirrorType`");
+		}
 	}
 
 	// Des Getters et des Setters
