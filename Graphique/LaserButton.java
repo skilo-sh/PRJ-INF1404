@@ -13,7 +13,7 @@ public class LaserButton extends JButton
 		super("");
 		this.setBackground(Color.WHITE);
 		this.sens = croise?new Vec2(1,1):sens;
-
+        this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 	} 
 
     @Override
@@ -25,7 +25,7 @@ public class LaserButton extends JButton
     	Graphics2D g2d = (Graphics2D) g;
     
     	// Définir l'épaisseur du trait (taille du "pinceau")
-    	float strokeWidth = 3.0f; // Choisissez la taille de votre pinceau
+    	float strokeWidth = 6.0f; // Choisissez la taille de votre pinceau
     	g2d.setStroke(new BasicStroke(strokeWidth));
         // Dessiner un trait rouge au centre du bouton
         

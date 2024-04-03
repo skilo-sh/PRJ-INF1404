@@ -12,9 +12,9 @@ public class MiroirButton extends JButton
 	{
 		super("");
 		this.setBackground(Color.WHITE);
+        this.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		this.sens = sens;
 		// System.out.println(this.sens);
-
 	} 
 
     @Override
@@ -26,7 +26,7 @@ public class MiroirButton extends JButton
     	Graphics2D g2d = (Graphics2D) g;
     
     	// Définir l'épaisseur du trait (taille du "pinceau")
-    	float strokeWidth = 3.0f; // Choisissez la taille de votre pinceau
+    	float strokeWidth = 6.0f; // Choisissez la taille de votre pinceau
     	g2d.setStroke(new BasicStroke(strokeWidth));
         // Dessiner un trait rouge au centre du bouton
         

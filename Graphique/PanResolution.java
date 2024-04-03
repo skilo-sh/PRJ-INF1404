@@ -96,6 +96,7 @@ public  class PanResolution extends JPanel
          for (int j = 0; j < parent.WIDTH; j++)
          {
             JButton button = new JButton("");
+            button.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
             // System.out.println(parent.p[i][j].getType());
             switch(parent.p[i][j].getType()) 
             {
