@@ -14,8 +14,8 @@ public class Affichage extends JFrame {
    private JPanel currentPanel ;
    private JMenuItem chargerItem;
    private JMenuItem enregistrerItem;
-   public final int WIDTH = 5;
-   public final int HEIGHT = 5;
+   public final int WIDTH = 7;
+   public final int HEIGHT = 7;
    public Cellule[][] p;
 
    public Affichage() {
@@ -39,14 +39,6 @@ public class Affichage extends JFrame {
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       setSize(screenSize.width, screenSize.height);
       addWindowListener(l);
-      
-
-
-     
-
-
-
-
 // Créer la barre de menu et le menu
       JMenuBar menuBar = new JMenuBar();
       JMenu fileMenu = new JMenu("Fichier");

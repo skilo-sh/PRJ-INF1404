@@ -12,6 +12,7 @@ public class Cellule {
 	protected Vec2 orientation; // X c'est ±1/0 et Y c'est ±1/0 aussi
 	protected TypeObstacle type;
 	protected Direction directionSuivante;
+	protected Direction[] directionsSuivante;
 
 	// Constructeurs
 	public Cellule(TypeObstacle type, Vec2 position)
@@ -30,6 +31,10 @@ public class Cellule {
 		this.position = position;
 		this.orientation = orientation;
 		this.directionSuivante = Direction.GAUCHE;
+
+		// Temp ci dessous
+		this.directionsSuivante = new Direction[4];
+		for(int i = 0; i < 4; i++){this.directionsSuivante[i] = Direction.GAUCHE;};
 	}
 
 	public Cellule(TypeObstacle type, Vec2 position, Vec2 orientation)
@@ -38,6 +43,10 @@ public class Cellule {
 		this.position = position;
 		this.orientation = orientation;
 		this.directionSuivante = Direction.GAUCHE;
+
+		// Temp ci dessous
+		this.directionsSuivante = new Direction[4];
+		for(int i = 0; i < 4; i++){this.directionsSuivante[i] = Direction.GAUCHE;};
 	}
 
 
@@ -103,6 +112,20 @@ public class Cellule {
 		return firstCellule;
 	}
 
+	public int orientationVersIndex(Vec2 d)
+	{
+		if(d.eq(new Vec2(-1, 0)))
+			return 0;
+		else if(d.eq(new Vec2(1,  0)))
+			return 1;
+		else if(d.eq(new Vec2(0, -1)))
+			return 2;
+		else if(d.eq(new Vec2(0,  1)))
+			return 3;
+		else 
+			throw new java.lang.Error("J'ai fait de la merde avec `directionVersIndex`");
+	}
+
 	public Cellule choixSuivant(Plateau p)
 	{
 		// Récupération de la position et orientation de la cellule actuel
@@ -112,12 +135,13 @@ public class Cellule {
 		boolean isVertical = no.getY() == 1 || no.getY() == -1 ? true : false;
 		Vec2 new_pos; Cellule newCellule;
 
-		switch(this.directionSuivante)
+		// Direction this.directionSuivante = this.directionSuivante;
+		switch(this.directionsSuivante[orientationVersIndex(no)])
 		{
 			case GAUCHE:
 			{
 				// Dans tous les cas le prochain essais doit être d'aller devant
-				this.directionSuivante = Direction.DEVANT;
+				this.directionsSuivante[orientationVersIndex(no)] = Direction.DEVANT;
 				if(isVertical)
 				{
 					new_pos = new Vec2(np.getX() + no.getY(), np.getY());
@@ -125,6 +149,7 @@ public class Cellule {
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
 					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
+						// System.out.println("test");
 						return this.choixSuivant(p);
 					}
 
@@ -136,7 +161,7 @@ public class Cellule {
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
 					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
-						this.directionSuivante = Direction.DEVANT;
+						this.directionsSuivante[orientationVersIndex(no)] = Direction.DEVANT;
 						return this.choixSuivant(p);
 					}
 
@@ -151,7 +176,7 @@ public class Cellule {
 			case DEVANT:
 			{
 				// Dans tous les cas le prochain essais doit être d'aller à droite
-				this.directionSuivante = Direction.DROITE;
+				this.directionsSuivante[orientationVersIndex(no)] = Direction.DROITE;
 				if(isVertical)
 				{
 					new_pos = new Vec2(np.getX(), np.getY() + no.getY());
@@ -159,7 +184,7 @@ public class Cellule {
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
 					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
-						this.directionSuivante = Direction.DROITE;
+						this.directionsSuivante[orientationVersIndex(no)] = Direction.DROITE;
 						return this.choixSuivant(p);
 					}
 
@@ -171,7 +196,7 @@ public class Cellule {
 					if(!p.isValidCoordinate(new_pos.getX(), new_pos.getY()) || 
 					   !p.getGrille()[new_pos.getY()][new_pos.getX()].estLibre())
 					{
-						this.directionSuivante = Direction.DROITE;
+						this.directionsSuivante[orientationVersIndex(no)] = Direction.DROITE;
 						return this.choixSuivant(p);
 					}
 
@@ -179,13 +204,15 @@ public class Cellule {
 					newCellule.setOrientation(new Vec2(no.getX(), no.getY()));
 				}
 				newCellule.setType(TypeObstacle.LASER);
+				this.setType(TypeObstacle.LASER);
+				// this.setMirrorType(this.getOrientation(), newCellule.getOrientation());
 				return newCellule;
 			}
 			
 			case DROITE:
 			{
 				// Dans tous les cas le prochain essais doit être de backtrack
-				this.directionSuivante = Direction.FINIT;
+				this.directionsSuivante[orientationVersIndex(no)] = Direction.FINIT;
 				if(isVertical)
 				{
 					new_pos = new Vec2(np.getX() - no.getY(), np.getY());
@@ -215,6 +242,7 @@ public class Cellule {
 			}
 
 			case FINIT:
+				// this.directionsSuivante[orientationVersIndex(no)] = Direction.GAUCHE;
 				return null;
 			default:
 				throw new java.lang.Error("Unreachable !!!");
@@ -254,5 +282,8 @@ public class Cellule {
 	public TypeObstacle getType(){return this.type;}
 	public Vec2 getOrientation(){return this.orientation;}
 	public void setType(TypeObstacle t){this.type = t;return;}
+	// public void resetNextDir(){this.directionSuivante = Direction.GAUCHE;};
+	public void resetNextDir(){for(int i = 0; i < 4; i++){this.directionsSuivante[i] = Direction.GAUCHE;};};
 	public void setOrientation(Vec2 o){this.orientation = o;return;}
+	// public String getDetails(){return "" + this.orientation + this.position};
 }

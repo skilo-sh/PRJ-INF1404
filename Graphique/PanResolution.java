@@ -20,7 +20,7 @@ public  class PanResolution extends JPanel
             int x = i;
             int y = j;
             JButton button = new JButton("");
-            System.out.println(i);
+            // System.out.println(i);
             switch(parent.p[i][j].getType()) 
             {
                case VIDE:
@@ -96,7 +96,7 @@ public  class PanResolution extends JPanel
          for (int j = 0; j < parent.WIDTH; j++)
          {
             JButton button = new JButton("");
-            System.out.println(parent.p[i][j].getType());
+            // System.out.println(parent.p[i][j].getType());
             switch(parent.p[i][j].getType()) 
             {
                case VIDE:

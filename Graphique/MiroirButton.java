@@ -13,7 +13,7 @@ public class MiroirButton extends JButton
 		super("");
 		this.setBackground(Color.WHITE);
 		this.sens = sens;
-		System.out.println(this.sens);
+		// System.out.println(this.sens);
 
 	} 
 

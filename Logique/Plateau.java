@@ -58,7 +58,7 @@ public class Plateau {
 		{
 			// try 
 			// {
-    		// 	TimeUnit.SECONDS.sleep(2);
+    		// 	TimeUnit.SECONDS.sleep(1);
 			// }
 			// catch (InterruptedException ie)
 			// {
@@ -85,6 +85,7 @@ public class Plateau {
 				this.tempUpdate(celluleSuivante);
 			} 
 			// System.out.print(this);
+			// System.out.println(maStack.hashCode());
 			// System.out.println("-----------");
 
 			counter += 1;
@@ -147,6 +148,7 @@ public class Plateau {
 		Vec2 np = c.getPosition();
 		// if(c.getType() != TypeObstacle.LASER)
 		this.grille[np.getY()][np.getX()].setType(TypeObstacle.VIDE);
+		this.grille[np.getY()][np.getX()].resetNextDir();
 	}
 
 	public String toString() {

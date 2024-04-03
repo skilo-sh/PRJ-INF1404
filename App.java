@@ -15,21 +15,23 @@ import java.awt.event.*;import java.util.Random;
 public class App {
     public static void main(String[] args) {
         Vec2 maDimension = new Vec2(5, 5);
-        Cellule maSrcLaser  = new Cellule(TypeObstacle.SRC_LASER, new Vec2(2, 4), new Vec2(0, -1));
+        Cellule maSrcLaser  = new Cellule(TypeObstacle.SRC_LASER, new Vec2(3, 1), new Vec2(0, -1));
 
         // Remplissage avec n murs choisit aléatoirement
-        int n = 2;
+        int n = 4;
         Cellule[] mesObstacles = new Cellule[n];
         Random rand = new Random();
-        for(int i = 0; i < n; i++)
-        {
-            int rand_y = rand.nextInt(maDimension.getY());
-            int rand_x = rand.nextInt(maDimension.getX());
+        // for(int i = 0; i < n; i++)
+        // {
+        //     int rand_y = rand.nextInt(maDimension.getY());
+        //     int rand_x = rand.nextInt(maDimension.getX());
 
-            mesObstacles[i] = new Cellule(TypeObstacle.MUR, new Vec2(rand_x, rand_y));
-        }
-        mesObstacles[0] = new Cellule(TypeObstacle.MUR, new Vec2(0, 0));
-        mesObstacles[1] = new Cellule(TypeObstacle.MUR, new Vec2(2, 1));
+        //     mesObstacles[i] = new Cellule(TypeObstacle.MUR, new Vec2(rand_x, rand_y));
+        // }
+        mesObstacles[0] = new Cellule(TypeObstacle.MUR, new Vec2(1, 1));
+        mesObstacles[1] = new Cellule(TypeObstacle.MUR, new Vec2(1, 2));
+        mesObstacles[2] = new Cellule(TypeObstacle.MUR, new Vec2(2, 2));
+        mesObstacles[3] = new Cellule(TypeObstacle.MUR, new Vec2(3, 3));
 
         Plateau p = new Plateau(maDimension, maSrcLaser, mesObstacles);
         System.out.print(p);
